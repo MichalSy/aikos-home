@@ -2,10 +2,11 @@
   flex: 1;
   overflow-x: auto;
   overflow-y: hidden;
-  padding: 20px 40px 40px 40px; /* Base padding */
-  padding-right: 0; /* Remove right padding to prevent cut-off */
-  display: flex;
-  flex-direction: column;
+  padding: 20px 40px 40px 40px;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 0;
+  height: 100%;
 }
 
 .topbar-controls {
@@ -21,19 +22,23 @@
   gap: 30px;
   height: 100%;
   min-width: fit-content;
-  padding-right: 0; /* Remove padding */
+  padding-right: 40px;
+  align-items: stretch;
 }
 
 .column {
   width: 320px;
   background: rgba(255, 255, 255, 0.4);
   backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
   border-radius: var(--border-radius);
   display: flex;
   flex-direction: column;
   border: 1px solid rgba(255, 255, 255, 0.5);
   box-shadow: var(--shadow);
   flex-shrink: 0;
+  height: fit-content;
+  max-height: calc(100vh - 200px);
 }
 
 .column-header {
