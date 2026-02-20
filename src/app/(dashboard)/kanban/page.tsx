@@ -1,6 +1,8 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import '../../../components/Board/KanbanBoard.css';
+import '../../../components/Board/Card.css';
 
 interface Task {
   id: number;
@@ -13,9 +15,20 @@ interface Task {
   result?: string;
 }
 
+interface Quest {
+  id: number;
+  title: string;
+  description?: string;
+  status: string;
+  is_ready: number;
+  priority: string;
+  tasks: Task[];
+}
+
 export default function KanbanPage() {
-  const [quests, setQuests] = useState<any[]>([]);
+  const [quests, setQuests] = useState<Quest[]>([]);
   const [loading, setLoading] = useState(true);
+  const [counts, setCounts] = useState({ todo: 0, 'in-progress': 0, done: 0 });
 
   useEffect(() => {
     fetchQuests();
@@ -30,6 +43,14 @@ export default function KanbanPage() {
       if (res.ok) {
         const data = await res.json();
         setQuests(data);
+        
+        const newCounts = { todo: 0, 'in-progress': 0, done: 0 };
+        data.forEach((q: Quest) => {
+          if (newCounts[q.status as keyof typeof newCounts] !== undefined) {
+            newCounts[q.status as keyof typeof newCounts]++;
+          }
+        });
+        setCounts(newCounts);
       }
     } catch (error) {
       console.error('Failed to fetch quests:', error);
@@ -43,30 +64,29 @@ export default function KanbanPage() {
   }
 
   return (
-    <div className="kanban-container p-8">
-      <h1 className="text-3xl font-bold mb-6">
-        <span style={{ background: 'var(--accent-gradient)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-          Quest Board
-        </span>
-        <span className="ml-2">📜</span>
-      </h1>
-      
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div className="board-container">
+      <div className="board">
         {['todo', 'in-progress', 'done'].map(status => (
-          <div key={status} className="glass p-4">
-            <h2 className="text-xl font-semibold mb-4">
-              {status.replace('-', ' ').toUpperCase()}
-            </h2>
-            <div className="space-y-3">
+          <div 
+            key={status} 
+            className={`column col-${status}`}
+          >
+            <div className="column-header">
+              {status.replace('-', ' ').toUpperCase()} 
+              <span className="count-badge">{counts[status as keyof typeof counts]}</span>
+            </div>
+            <div className="task-list">
               {quests.filter(q => q.status === status).map(quest => (
-                <div key={quest.id} className="glass p-3 cursor-pointer hover:bg-white/5">
-                  <h3 className="font-medium">{quest.title}</h3>
+                <div key={quest.id} className="card">
+                  <div className="card-header">
+                    <div className="card-title">{quest.title}</div>
+                  </div>
                   {quest.description && (
-                    <p className="text-sm text-gray-400 mt-1">{quest.description}</p>
+                    <div className="card-desc">{quest.description}</div>
                   )}
-                  {quest.tasks && (
-                    <div className="mt-2 text-xs text-gray-500">
-                      {quest.tasks.length} tasks
+                  {quest.tasks && quest.tasks.length > 0 && (
+                    <div className="card-footer">
+                      <span>{quest.tasks.length} tasks</span>
                     </div>
                   )}
                 </div>

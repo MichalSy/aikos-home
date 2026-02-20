@@ -1,70 +1,69 @@
+:root {
+  /* Colors */
+  --bg-color: #fdfbf7;
+  --text-primary: #2c3e50;
+  --text-secondary: #596b7d;
+  
+  /* Sidebar */
+  --sidebar-bg: rgba(255, 255, 255, 0.65);
+  --sidebar-border: rgba(255, 255, 255, 0.3);
+  
+  /* Cards & Glass */
+  --card-bg: rgba(255, 255, 255, 0.85);
+  --glass-blur: 1.25rem; /* 20px */
+  --shadow: 0 0.5rem 2rem 0 rgba(31, 38, 135, 0.1);
+  
+  /* Accents */
+  --accent: #ff9a9e;
+  --accent-gradient: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+  
+  /* Status Colors */
+  --col-todo: #a18cd1;
+  --col-progress: #74b9ff;
+  --col-blocked: #ff7675;
+  --col-done: #55efc4;
+  
+  /* Metrics */
+  --border-radius: 1.25rem; /* 20px */
+  --spacing-sm: 0.5rem; /* 8px */
+  --spacing-md: 1rem; /* 16px */
+  --spacing-lg: 1.5rem; /* 24px */
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+
+body {
+  margin: 0;
+  font-family: 'Outfit', 'Noto Sans JP', sans-serif;
+  background: url('/bg.jpg') no-repeat center center fixed;
+  background-size: cover;
+  color: var(--text-primary);
+  overflow: hidden;
+}
+
+body::before {
+  content: ""; position: absolute; inset: 0;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(0.3rem); /* 5px */
+  z-index: -1;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  /* Kawaii-Tech Theme */
-  --primary-pink: #ff6b9d;
-  --primary-lavender: #c471ed;
-  --primary-mint: #00d4ff;
-  
-  --accent-gradient: linear-gradient(135deg, #ff6b9d 0%, #c471ed 50%, #00d4ff 100%);
-  
-  --glass-bg: rgba(255, 255, 255, 0.1);
-  --glass-border: rgba(255, 255, 255, 0.2);
-  
-  --text-primary: #1a1a2e;
-  --text-secondary: #6b7280;
-  
-  --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-}
-
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
-
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-}
-
-body {
-  background: var(--bg-gradient);
-  color: var(--text-primary);
-  min-height: 100vh;
-}
-
-/* Glassmorphism Utilities */
-.glass {
-  background: var(--glass-bg);
-  backdrop-filter: blur(20px);
-  border: 1px solid var(--glass-border);
-  border-radius: 1rem;
-}
-
-/* REM-based sizing (1rem ≈ 16px) */
-.text-xs { font-size: 0.75rem; }
-.text-sm { font-size: 0.875rem; }
-.text-base { font-size: 1rem; }
-.text-lg { font-size: 1.125rem; }
-.text-xl { font-size: 1.25rem; }
-.text-2xl { font-size: 1.5rem; }
-.text-3xl { font-size: 1.875rem; }
-
 /* Components */
 @import '../components/Layout/Sidebar.css';
 @import '../components/Auth/LoginForm.css';
+@import '../components/Board/KanbanBoard.css';
+@import '../components/Board/Card.css';
 
 .loading {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100vh;
-  color: white;
+  color: var(--text-primary);
 }
 
 .main-content {
@@ -73,3 +72,14 @@ body {
   overflow: hidden;
 }
 
+/* Topbar */
+.topbar {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 20;
+}

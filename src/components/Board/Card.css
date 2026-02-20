@@ -1,0 +1,115 @@
+.card {
+  background: var(--card-bg);
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+  cursor: grab;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  border: 1px solid rgba(255,255,255,0.6);
+}
+
+.card:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  border-color: white;
+}
+
+/* Subtask card styling */
+.subtask-card {
+  background: rgba(255, 255, 255, 0.6);
+  border-left: 3px solid var(--primary);
+  padding: 12px 16px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+}
+
+.subtask-card .card-title {
+  font-size: 0.9rem;
+}
+
+.subtask-card .card-desc {
+  font-size: 0.8rem;
+  margin-bottom: 8px;
+}
+
+.subtask-card .card-tag {
+  font-size: 0.55rem;
+  padding: 2px 8px;
+}
+
+/* Card header with expand button */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.expand-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 0.75rem;
+  color: #888;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.expand-btn:hover {
+  background: rgba(0, 0, 0, 0.05);
+  color: #333;
+}
+
+/* Subtask list container */
+.subtask-list {
+  margin-left: 16px;
+  padding-left: 12px;
+  border-left: 2px solid rgba(255, 154, 158, 0.3);
+  margin-top: -8px;
+  margin-bottom: 16px;
+}
+
+.card-tag {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 20px;
+  color: white;
+  background: var(--accent-gradient);
+  display: inline-block;
+  box-shadow: 0 2px 8px rgba(255, 154, 158, 0.4);
+}
+
+.card-title {
+  font-weight: 600;
+  margin-bottom: 6px;
+  font-size: 1rem;
+  color: #333;
+}
+
+.card-desc {
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 15px;
+  line-height: 1.5;
+}
+
+.card-footer {
+  display: flex; 
+  justify-content: space-between; 
+  font-size: 0.75rem; 
+  color: #888; 
+  margin-top: 15px; 
+  border-top: 1px solid rgba(0,0,0,0.05); 
+  padding-top: 10px;
+}
+
+.priority-dot {
+  width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; display: inline-block;
+}
+.p-high { background: #ff6b6b; box-shadow: 0 0 8px rgba(255,107,107,0.5); }
+.p-medium { background: #feca57; }
+.p-low { background: #1dd1a1; }

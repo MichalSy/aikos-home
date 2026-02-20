@@ -1,141 +1,212 @@
 .sidebar {
-  background: rgba(26, 26, 46, 0.95);
-  backdrop-filter: blur(20px);
-  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  width: 300px;
+  background: var(--sidebar-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border-right: 1px solid var(--sidebar-border);
   display: flex;
   flex-direction: column;
-  padding: 2rem 1rem;
-  gap: 0.5rem;
+  padding: 40px 20px;
+  z-index: 10;
+  box-shadow: var(--shadow);
+  height: 100vh;
 }
 
 .profile {
-  text-align: center;
-  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 40px;
 }
 
 .avatar-container {
   position: relative;
-  width: 120px;
-  height: 120px;
-  margin: 0 auto 1rem;
+  width: 10rem; 
+  height: 10rem;
+  margin-bottom: 15px;
+  transition: transform 0.3s ease;
+}
+
+.avatar-container:hover {
+  transform: scale(1.05);
 }
 
 .avatar {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  width: 100%; height: 100%;
   border-radius: 50%;
   background-size: cover;
   background-position: center;
-  border: 3px solid rgba(255, 255, 255, 0.2);
-}
-
-.status-indicator {
+  border: 4px solid white;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
   position: absolute;
-  bottom: 5px;
-  right: 5px;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  border: 3px solid rgba(26, 26, 46, 0.95);
-  z-index: 10;
-}
-
-.status-indicator.connected,
-.status-indicator.idle {
-  background: #10b981;
-  box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
-}
-
-.status-indicator.thinking,
-.status-indicator.working,
-.status-indicator.writing {
-  background: #3b82f6;
-  animation: pulse 2s infinite;
-}
-
-.status-indicator.busy {
-  background: #f59e0b;
-}
-
-.status-indicator.disconnected {
-  background: #6b7280;
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
+  top: 0; left: 0;
+  background-color: #f0f0f0;
 }
 
 .brand {
-  font-size: 1.5rem;
   font-weight: 800;
-  margin-bottom: 0.5rem;
+  font-size: 1.5rem;
+  margin-top: 1rem;
+  letter-spacing: -0.5px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .brand-text {
   background: var(--accent-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .brand-emoji {
-  margin-left: 0.5rem;
-  filter: none;
-  -webkit-text-fill-color: initial;
+  -webkit-text-fill-color: initial; 
+  font-weight: normal;
 }
 
 .status-text {
-  font-size: 0.875rem;
-  color: #9ca3af;
+  font-size: 0.85rem;
+  color: #8b6b7a;
+  margin-top: 0.5rem;
+  font-weight: 600;
+  opacity: 0.8;
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 0.5rem;
 }
 
+/* Status Dot (Small) */
 .status-dot {
-  width: 8px;
-  height: 8px;
+  width: 0.6rem; height: 0.6rem;
   border-radius: 50%;
+  background: #ccc;
+  position: relative;
 }
 
-.status-dot.connected,
-.status-dot.idle {
-  background: #10b981;
-}
-
-.status-dot.thinking,
-.status-dot.working,
-.status-dot.writing {
-  background: #3b82f6;
-  animation: pulse 2s infinite;
-}
-
-.status-dot.disconnected {
-  background: #6b7280;
+.status-dot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  z-index: -1;
+  opacity: 0.6;
 }
 
 .nav-item {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.75rem 1rem;
-  border-radius: 0.75rem;
-  color: #9ca3af;
+  padding: 0.9rem 1.2rem;
+  border-radius: 1rem;
+  color: #6c7a89;
+  cursor: pointer;
+  transition: color 0.25s ease, background 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+  font-weight: 600;
+  display: flex; 
+  align-items: center; 
+  gap: 0.9rem;
+  margin-bottom: 0.5rem;
+  
   text-decoration: none;
-  transition: all 0.2s;
+  border: none;
+  background: transparent;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: inherit;
+  font-size: 1.05rem;
+  line-height: 1.5;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
+  overflow: hidden;
 }
 
-.nav-item:hover {
-  background: rgba(255, 255, 255, 0.05);
-  color: white;
+.nav-item:visited, .nav-item:link, .nav-item:active, .nav-item:focus {
+  color: #6c7a89;
+  text-decoration: none;
+}
+
+.nav-item:hover:not(.active) {
+  background: rgba(255, 255, 255, 0.5);
+  color: #5a6b7c;
+  transform: translateX(3px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
 }
 
 .nav-item.active {
-  background: rgba(255, 107, 157, 0.1);
-  color: #ff6b9d;
-  font-weight: 600;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 240, 245, 0.9) 100%);
+  color: #d4849e !important;
+  box-shadow: 0 4px 12px rgba(255, 154, 158, 0.15);
+  border: 1px solid rgba(255, 182, 193, 0.2);
+}
+
+.nav-item.active:visited {
+  color: #d4849e !important;
+}
+
+.nav-item.active::before {
+  content: '';
+  position: absolute;
+  left: 0.6rem;
+  height: 40%;
+  width: 3px;
+  background: var(--accent-gradient);
+  border-radius: 2px;
+}
+
+/* Status Indicator (Avatar) */
+.status-indicator {
+  position: absolute;
+  bottom: 0.8rem; right: 0.8rem;
+  width: 1.5rem; height: 1.5rem;
+  background: #ccc;
+  border: 3px solid white;
+  border-radius: 50%;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  transition: background-color 0.3s ease;
+  z-index: 10;
+}
+
+.status-indicator::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  z-index: -1;
+  opacity: 0.6;
+}
+
+/* Shared Colors & Animation for Indicator + Dot */
+.status-indicator.connected, .status-indicator.idle,
+.status-dot.connected, .status-dot.idle {
+  background: #4cd137;
+}
+
+.status-indicator.busy, .status-dot.busy {
+  background: #fbc531;
+}
+
+.status-indicator.thinking, .status-indicator.working, .status-indicator.writing, 
+.status-dot.thinking, .status-dot.working, .status-dot.writing {
+  background: #00a8ff;
+}
+
+.status-indicator.disconnected, .status-dot.disconnected {
+  background: #e84118;
+}
+
+/* Ping Animation */
+.status-indicator.connected::after, .status-indicator.idle::after,
+.status-dot.connected::after, .status-dot.idle::after {
+  background-color: #4cd137;
+  animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+.status-indicator.thinking::after, .status-indicator.working::after,
+.status-dot.thinking::after, .status-dot.working::after {
+  background-color: #00a8ff;
+  animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes ping {
+  0% { transform: scale(1); opacity: 0.6; }
+  75%, 100% { transform: scale(1.8); opacity: 0; }
 }
