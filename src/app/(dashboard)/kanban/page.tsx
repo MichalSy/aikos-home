@@ -85,11 +85,16 @@ export default function KanbanPage() {
       {/* Topbar */}
       <div className="topbar">
         <div>
-          <h1>Quest Board <span>⚔️</span></h1>
+          <h1>
+            <span style={{ background: 'var(--accent-gradient)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+              Quest Board
+            </span>
+            <span style={{ marginLeft: '0.5rem' }}>⚔️</span>
+          </h1>
           <p>Ready for adventure? ✨</p>
         </div>
         <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-          <button className="glass px-4 py-2 rounded-lg font-semibold hover:bg-white/20 transition">
+          <button className="new-quest-btn">
             ✨ New Quest
           </button>
           <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer', whiteSpace: 'nowrap' }}>
