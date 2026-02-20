@@ -28,6 +28,7 @@ interface Quest {
 export default function KanbanPage() {
   const [quests, setQuests] = useState<Quest[]>([]);
   const [loading, setLoading] = useState(true);
+  const [showBlocked, setShowBlocked] = useState(false);
   const [counts, setCounts] = useState({
     todo: 0,
     ready: 0,
@@ -75,10 +76,37 @@ export default function KanbanPage() {
     return <div className="p-8">Loading...</div>;
   }
 
-  const statuses = ['todo', 'ready', 'in-progress', 'done', 'blocked'] as const;
+  const statuses = showBlocked 
+    ? ['todo', 'ready', 'in-progress', 'done', 'blocked'] as const
+    : ['todo', 'ready', 'in-progress', 'done'] as const;
 
   return (
     <div className="board-container">
+      {/* Header */}
+      <div className="topbar">
+        <div>
+          <h1 className="text-3xl font-bold">
+            Quest Board <span>⚔️</span>
+          </h1>
+          <p className="text-sm text-gray-500">Ready for adventure? ✨</p>
+        </div>
+        <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+          <button className="glass px-4 py-2 rounded-lg font-semibold hover:bg-white/20 transition">
+            ✨ New Quest
+          </button>
+          <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>
+            <input 
+              type="checkbox" 
+              checked={showBlocked}
+              onChange={(e) => setShowBlocked(e.target.checked)}
+              style={{ cursor: 'pointer' }}
+            />
+            Show Blocked
+          </label>
+        </div>
+      </div>
+
+      {/* Board */}
       <div className="board">
         {statuses.map(status => (
           <div 

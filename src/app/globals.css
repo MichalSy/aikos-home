@@ -82,4 +82,5 @@ body::before {
   align-items: center;
   justify-content: space-between;
   z-index: 20;
+  height: 70px;
 }
