@@ -1,26 +1,35 @@
-'use client';
+import React from 'react';
+import './Tabs.css';
 
-import React, { useState } from 'react';
-
-interface TabsProps {
-  items: Array<{ id: string; label: string; icon: string }>;
-  activeTab: string;
-  onTabChange: (id: string) => void;
+interface TabItem {
+  id: string;
+  label: string;
+  icon?: string;
 }
 
-export const Tabs = ({ items, activeTab, onTabChange }: TabsProps) => {
+interface TabsProps {
+  items: TabItem[];
+  activeTab: string;
+  onTabChange: (id: string) => void;
+  className?: string;
+}
+
+export const Tabs = ({ items, activeTab, onTabChange, className = '' }: TabsProps) => {
   return (
-    <div className="tabs-container">
-      {items.map(item => (
-        <button
-          key={item.id}
-          className={`tab-button ${activeTab === item.id ? 'active' : ''}`}
-          onClick={() => onTabChange(item.id)}
-        >
-          <span className="tab-icon">{item.icon}</span>
-          <span>{item.label}</span>
-        </button>
-      ))}
+    <div className={`tabs-container ${className}`}>
+      <div className="tabs-header">
+        {items.map(tab => (
+          <button
+            key={tab.id}
+            className={`tab-button ${activeTab === tab.id ? 'active' : ''}`}
+            onClick={() => onTabChange(tab.id)}
+          >
+            {tab.icon && <span className="tab-icon">{tab.icon}</span>}
+            {tab.label}
+            {activeTab === tab.id && <div className="tab-indicator" />}
+          </button>
+        ))}
+      </div>
     </div>
   );
 };
