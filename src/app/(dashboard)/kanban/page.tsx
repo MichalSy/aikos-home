@@ -28,7 +28,13 @@ interface Quest {
 export default function KanbanPage() {
   const [quests, setQuests] = useState<Quest[]>([]);
   const [loading, setLoading] = useState(true);
-  const [counts, setCounts] = useState({ todo: 0, 'in-progress': 0, done: 0 });
+  const [counts, setCounts] = useState({
+    todo: 0,
+    ready: 0,
+    'in-progress': 0,
+    blocked: 0,
+    done: 0
+  });
 
   useEffect(() => {
     fetchQuests();
@@ -44,7 +50,13 @@ export default function KanbanPage() {
         const data = await res.json();
         setQuests(data);
         
-        const newCounts = { todo: 0, 'in-progress': 0, done: 0 };
+        const newCounts = {
+          todo: 0,
+          ready: 0,
+          'in-progress': 0,
+          blocked: 0,
+          done: 0
+        };
         data.forEach((q: Quest) => {
           if (newCounts[q.status as keyof typeof newCounts] !== undefined) {
             newCounts[q.status as keyof typeof newCounts]++;
@@ -63,17 +75,19 @@ export default function KanbanPage() {
     return <div className="p-8">Loading...</div>;
   }
 
+  const statuses = ['todo', 'ready', 'in-progress', 'done', 'blocked'] as const;
+
   return (
     <div className="board-container">
       <div className="board">
-        {['todo', 'in-progress', 'done'].map(status => (
+        {statuses.map(status => (
           <div 
             key={status} 
             className={`column col-${status}`}
           >
             <div className="column-header">
               {status.replace('-', ' ').toUpperCase()} 
-              <span className="count-badge">{counts[status as keyof typeof counts]}</span>
+              <span className="count-badge">{counts[status]}</span>
             </div>
             <div className="task-list">
               {quests.filter(q => q.status === status).map(quest => (
@@ -84,11 +98,13 @@ export default function KanbanPage() {
                   {quest.description && (
                     <div className="card-desc">{quest.description}</div>
                   )}
-                  {quest.tasks && quest.tasks.length > 0 && (
-                    <div className="card-footer">
-                      <span>{quest.tasks.length} tasks</span>
-                    </div>
-                  )}
+                  <div className="card-footer">
+                    <span className={`priority-dot p-${quest.priority}`}></span>
+                    <span>{quest.priority}</span>
+                    {quest.tasks && quest.tasks.length > 0 && (
+                      <span style={{marginLeft: 'auto'}}>{quest.tasks.length} tasks</span>
+                    )}
+                  </div>
                 </div>
               ))}
             </div>
