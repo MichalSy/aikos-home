@@ -434,7 +434,7 @@ export default function DebugPage() {
                         No tasks
                       </div>
                     ) : (
-                      questTasks.map(task => (
+                      questTasks.map((task: any) => (
                         <div key={task.id} style={{
                           padding: '0.75rem',
                           marginBottom: '0.5rem',
