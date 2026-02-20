@@ -43,6 +43,7 @@
 @import '../components/Board/Card.css';
 @import '../components/UI/Button.css';
 @import '../components/Board/NewTaskModal.css';
+@import '../components/UI/Tabs.css';
 
 * {
   box-sizing: border-box;
