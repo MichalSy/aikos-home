@@ -3,6 +3,8 @@
 import { useEffect, useState } from 'react';
 import '../../../components/Board/KanbanBoard.css';
 import '../../../components/Board/Card.css';
+import { Button } from '../../../components/UI/Button';
+import { NewTaskModal } from '../../../components/Board/NewTaskModal';
 
 interface Task {
   id: number;
@@ -29,6 +31,7 @@ export default function KanbanPage() {
   const [quests, setQuests] = useState<Quest[]>([]);
   const [loading, setLoading] = useState(true);
   const [showBlocked, setShowBlocked] = useState(false);
+  const [showNewTask, setShowNewTask] = useState(false);
   const [counts, setCounts] = useState({
     todo: 0,
     ready: 0,
@@ -94,9 +97,9 @@ export default function KanbanPage() {
           <p>Ready for adventure? ✨</p>
         </div>
         <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-          <button className="new-quest-btn">
+          <Button variant="glass" onClick={() => setShowNewTask(true)}>
             ✨ New Quest
-          </button>
+          </Button>
           <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer', whiteSpace: 'nowrap' }}>
             <input 
               type="checkbox" 
@@ -144,6 +147,14 @@ export default function KanbanPage() {
           ))}
         </div>
       </div>
+
+      {/* New Quest Modal */}
+      {showNewTask && (
+        <NewTaskModal 
+          onClose={() => setShowNewTask(false)}
+          onCreated={fetchQuests}
+        />
+      )}
     </>
   );
 }

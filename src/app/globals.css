@@ -41,6 +41,8 @@
 @import '../components/Auth/LoginForm.css';
 @import '../components/Board/KanbanBoard.css';
 @import '../components/Board/Card.css';
+@import '../components/UI/Button.css';
+@import '../components/Board/NewTaskModal.css';
 
 * {
   box-sizing: border-box;
