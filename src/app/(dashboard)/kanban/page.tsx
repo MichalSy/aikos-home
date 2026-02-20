@@ -81,20 +81,18 @@ export default function KanbanPage() {
     : ['todo', 'ready', 'in-progress', 'done'] as const;
 
   return (
-    <div className="board-container">
-      {/* Header */}
+    <>
+      {/* Topbar */}
       <div className="topbar">
         <div>
-          <h1 className="text-3xl font-bold">
-            Quest Board <span>⚔️</span>
-          </h1>
-          <p className="text-sm text-gray-500">Ready for adventure? ✨</p>
+          <h1>Quest Board <span>⚔️</span></h1>
+          <p>Ready for adventure? ✨</p>
         </div>
         <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
           <button className="glass px-4 py-2 rounded-lg font-semibold hover:bg-white/20 transition">
             ✨ New Quest
           </button>
-          <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>
+          <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer', whiteSpace: 'nowrap' }}>
             <input 
               type="checkbox" 
               checked={showBlocked}
@@ -106,39 +104,41 @@ export default function KanbanPage() {
         </div>
       </div>
 
-      {/* Board */}
-      <div className="board">
-        {statuses.map(status => (
-          <div 
-            key={status} 
-            className={`column col-${status}`}
-          >
-            <div className="column-header">
-              {status.replace('-', ' ').toUpperCase()} 
-              <span className="count-badge">{counts[status]}</span>
-            </div>
-            <div className="task-list">
-              {quests.filter(q => q.status === status).map(quest => (
-                <div key={quest.id} className="card">
-                  <div className="card-header">
-                    <div className="card-title">{quest.title}</div>
-                  </div>
-                  {quest.description && (
-                    <div className="card-desc">{quest.description}</div>
-                  )}
-                  <div className="card-footer">
-                    <span className={`priority-dot p-${quest.priority}`}></span>
-                    <span>{quest.priority}</span>
-                    {quest.tasks && quest.tasks.length > 0 && (
-                      <span style={{marginLeft: 'auto'}}>{quest.tasks.length} tasks</span>
+      {/* Board Container */}
+      <div className="board-container">
+        <div className="board">
+          {statuses.map(status => (
+            <div 
+              key={status} 
+              className={`column col-${status}`}
+            >
+              <div className="column-header">
+                {status.replace('-', ' ').toUpperCase()} 
+                <span className="count-badge">{counts[status]}</span>
+              </div>
+              <div className="task-list">
+                {quests.filter(q => q.status === status).map(quest => (
+                  <div key={quest.id} className="card">
+                    <div className="card-header">
+                      <div className="card-title">{quest.title}</div>
+                    </div>
+                    {quest.description && (
+                      <div className="card-desc">{quest.description}</div>
                     )}
+                    <div className="card-footer">
+                      <span className={`priority-dot p-${quest.priority}`}></span>
+                      <span>{quest.priority}</span>
+                      {quest.tasks && quest.tasks.length > 0 && (
+                        <span style={{marginLeft: 'auto'}}>{quest.tasks.length} tasks</span>
+                      )}
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
