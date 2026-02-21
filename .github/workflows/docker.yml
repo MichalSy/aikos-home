@@ -8,6 +8,7 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: aikos-home.aikoapp
+  NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
   build-and-push:
@@ -24,13 +25,9 @@ jobs:
           registry-url: "https://npm.pkg.github.com"
 
       - name: Install dependencies
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npm ci
 
       - name: Build application
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npm run build
 
       - name: Set up Docker Buildx
