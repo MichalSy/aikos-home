@@ -8,11 +8,9 @@ WORKDIR /app
 # Install dumb-init for proper signal handling
 RUN apk add --no-cache dumb-init
 
-# Copy package files
+# Copy package files and ALL node_modules from build
 COPY package*.json ./
-
-# Install production dependencies only
-RUN npm ci --omit=dev
+COPY node_modules ./node_modules
 
 # Copy built application
 COPY .next ./.next
