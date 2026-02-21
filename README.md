@@ -73,3 +73,4 @@ npm start
 ---
 
 Built with ❤️ by Michal & Ryu 🐉
+# Docker Build Trigger
