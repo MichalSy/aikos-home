@@ -4,13 +4,13 @@
   "private": true,
   "scripts": {
     "dev": "node server.js",
-    "prebuild": "node -e \"require('@michalsy/aiko-webapp-core/generator').generate()\" && cp -r .aiko/app/auth .aiko/app/login src/app/ && cp .aiko/middleware.ts .",
+    "prebuild": "npx @michalsy/aiko-webapp-core generate && cp -r .aiko/app/auth .aiko/app/login src/app/ && cp .aiko/middleware.ts .",
     "build": "next build",
     "start": "NODE_ENV=production node server.js",
     "lint": "next lint"
   },
   "dependencies": {
-    "@michalsy/aiko-webapp-core": "^1.0.24",
+    "@michalsy/aiko-webapp-core": "^1.0.26",
     "@supabase/ssr": "^0.8.0",
     "@supabase/supabase-js": "^2.97.0",
     "better-sqlite3": "^12.6.2",
