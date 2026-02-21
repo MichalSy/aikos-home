@@ -8,6 +8,8 @@ export default function LoginPage() {
         title="Okaeri! 🌸"
         subtitle="Welcome to Aiko's Home"
         buttonText="Sign in with Google"
+        backgroundImage="/bg.jpg"
+        avatarImage="/avatar.jpg"
       />
     </Suspense>
   )

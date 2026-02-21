@@ -15,5 +15,11 @@
   "routes": {
     "protected": ["/dashboard", "/api"],
     "public": ["/", "/login", "/auth/callback"]
+  },
+  "theme": {
+    "login": {
+      "backgroundImage": "/bg.jpg",
+      "avatarImage": "/avatar.jpg"
+    }
   }
 }
