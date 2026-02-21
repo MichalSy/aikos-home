@@ -20,7 +20,16 @@ export default function DashboardLayout({
   }
 
   if (!session) {
-    return <LoginForm onLogin={() => {}} />;
+    return (
+      <LoginForm 
+        onLogin={() => {}}
+        title="Okaeri! 🌸"
+        subtitle="Welcome to Aiko's Home"
+        buttonText="Sign in with Google"
+        backgroundImage="/bg.jpg"
+        avatarImage="/avatar.jpg"
+      />
+    );
   }
 
   return (
