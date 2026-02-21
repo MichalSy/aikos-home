@@ -45,6 +45,17 @@ npm start
 - **Database:** SQLite (better-sqlite3)
 - **WebSocket:** Socket.io (planned)
 
+## Docker Build
+
+The Docker image is built and pushed to GHCR via GitHub Actions.
+
+### Required Repository Secret
+
+The project depends on `@michalsy/aiko-webapp-core` from GitHub Packages. Because `GITHUB_TOKEN` is scoped to the current repository and cannot read packages from other repositories, a **Personal Access Token (PAT)** is required:
+
+1. Create a PAT (classic) with the `read:packages` scope
+2. Add it as a repository secret named **`NPM_TOKEN`**
+
 ## Deployment (Caddy)
 
 Domain: `aiko-home.sytko.de`
@@ -73,4 +84,3 @@ npm start
 ---
 
 Built with ❤️ by Michal & Ryu 🐉
-# Docker Build Trigger
