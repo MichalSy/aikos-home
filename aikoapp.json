@@ -1,0 +1,19 @@
+{
+  "app": {
+    "name": "Aiko's Home",
+    "url": "https://aiko-home.sytko.de",
+    "description": "AI Control Center with Agent Spawning"
+  },
+  "auth": {
+    "enabled": true,
+    "provider": "google",
+    "loginTitle": "Okaeri! 🌸",
+    "loginSubtitle": "Welcome to Aiko's Home",
+    "loginButtonText": "Sign in with Google",
+    "successRedirect": "/dashboard/kanban"
+  },
+  "routes": {
+    "protected": ["/dashboard", "/api"],
+    "public": ["/", "/login", "/auth/callback"]
+  }
+}

@@ -1,9 +1,10 @@
+const { withAikoApp } = require('@michalsy/aiko-webapp-core/next-config')
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Enable WebSocket support
   experimental: {
     serverComponentsExternalPackages: ['better-sqlite3']
   }
-};
+}
 
-module.exports = nextConfig;
+module.exports = withAikoApp(nextConfig)
