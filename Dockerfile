@@ -11,8 +11,16 @@ WORKDIR /app
 # Copy package files
 COPY package*.json ./
 
+# Copy npmrc if exists (for GitHub Packages auth)
+COPY .npmrc* ./
+
 # Install ALL dependencies (devDependencies needed for build)
-RUN npm ci
+# Uses NPM_TOKEN build secret for GitHub Packages authentication
+RUN --mount=type=secret,id=npm_token,env=NPM_TOKEN \
+    if [ -f .npmrc ]; then \
+      sed -i "s/\${NPM_TOKEN}/$(cat /run/secrets/npm_token)/g" .npmrc; \
+    fi \
+    && npm ci
 
 # Copy source code
 COPY . .
