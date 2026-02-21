@@ -44,5 +44,5 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           no-cache: true
-          build-args: |
-            NPM_TOKEN=${{ secrets.GITHUB_TOKEN }}
+          secrets: |
+            npm_token=${{ secrets.GITHUB_TOKEN }}
