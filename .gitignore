@@ -32,6 +32,12 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# Aiko Webapp Core - Generated files
+.aiko/
+/src/app/login/page.tsx
+/src/app/auth/callback/route.ts
+/middleware.ts
+
 # database
 *.db
 *.db-journal
