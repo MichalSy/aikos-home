@@ -1,6 +1,7 @@
 {
   "app": {
     "name": "Aikos Home",
+    "app-name": "aikos-home",
     "url": "https://aiko-home.sytko.de",
     "description": "AI Control Center with Agent Spawning"
   },
