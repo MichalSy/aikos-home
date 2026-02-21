@@ -37,11 +37,11 @@ jobs:
           images: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}
 
       - name: Build and push
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: .
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           secrets: |
-            NPM_TOKEN=${{ secrets.GITHUB_TOKEN }}
+            "npm_token=${{ secrets.GITHUB_TOKEN }}"

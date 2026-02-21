@@ -1,3 +1,4 @@
+# syntax=docker/dockerfile:1
 # Aiko's Home - Docker Image
 # Based on Node.js 20 Alpine
 
@@ -10,17 +11,18 @@ WORKDIR /app
 
 # Copy package files
 COPY package*.json ./
-
-# Copy npmrc if exists (for GitHub Packages auth)
 COPY .npmrc* ./
 
+# Configure npm to use GitHub Packages with the provided token
+# The token is passed as a build secret
+RUN --mount=type=secret,id=npm_token <<EOF
+  set -e
+  npm config set @michalsy:registry https://npm.pkg.github.com
+  npm config set //npm.pkg.github.com/:_authToken $(cat /run/secrets/npm_token)
+EOF
+
 # Install ALL dependencies (devDependencies needed for build)
-# Uses NPM_TOKEN build secret for GitHub Packages authentication
-RUN --mount=type=secret,id=npm_token,env=NPM_TOKEN \
-    if [ -f .npmrc ]; then \
-      sed -i "s/\${NPM_TOKEN}/$(cat /run/secrets/npm_token)/g" .npmrc; \
-    fi \
-    && npm ci
+RUN npm ci
 
 # Copy source code
 COPY . .
