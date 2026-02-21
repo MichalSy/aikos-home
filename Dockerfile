@@ -14,10 +14,10 @@ COPY package*.json ./
 COPY .npmrc* ./
 
 # Install ALL dependencies (devDependencies needed for build)
-# GitHub token passed as build arg for GitHub Packages authentication
-ARG NPM_TOKEN
-RUN npm config set @michalsy:registry https://npm.pkg.github.com \
-    && npm config set //npm.pkg.github.com/:_authToken ${NPM_TOKEN} \
+# NPM_TOKEN is passed as a Docker build secret and exported as an env var
+# so that .npmrc can expand ${NPM_TOKEN} for GitHub Packages authentication
+RUN --mount=type=secret,id=npm_token \
+    export NPM_TOKEN=$(cat /run/secrets/npm_token) \
     && npm ci
 
 # Copy source code
