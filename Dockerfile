@@ -13,16 +13,12 @@ WORKDIR /app
 COPY package*.json ./
 COPY .npmrc* ./
 
-# Configure npm to use GitHub Packages with the provided token
-# The token is passed as a build secret
-RUN --mount=type=secret,id=npm_token <<EOF
-  set -e
-  npm config set @michalsy:registry https://npm.pkg.github.com
-  npm config set //npm.pkg.github.com/:_authToken $(cat /run/secrets/npm_token)
-EOF
-
 # Install ALL dependencies (devDependencies needed for build)
-RUN npm ci
+# GitHub token passed as build arg for GitHub Packages authentication
+ARG NPM_TOKEN
+RUN npm config set @michalsy:registry https://npm.pkg.github.com \
+    && npm config set //npm.pkg.github.com/:_authToken ${NPM_TOKEN} \
+    && npm ci
 
 # Copy source code
 COPY . .
