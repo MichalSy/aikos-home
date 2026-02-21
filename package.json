@@ -10,7 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@michalsy/aiko-webapp-core": "^1.0.20",
+    "@michalsy/aiko-webapp-core": "^1.0.22",
     "@supabase/ssr": "^0.8.0",
     "@supabase/supabase-js": "^2.97.0",
     "better-sqlite3": "^12.6.2",
