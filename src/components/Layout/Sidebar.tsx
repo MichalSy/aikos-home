@@ -6,9 +6,10 @@ import { usePathname } from 'next/navigation';
 
 interface SidebarProps {
   status: string;
+  onLogout?: () => void;
 }
 
-export default function Sidebar({ status }: SidebarProps) {
+export default function Sidebar({ status, onLogout }: SidebarProps) {
   const [frontImage, setFrontImage] = useState('/avatar.jpg');
   const [backImage, setBackImage] = useState('/avatar.jpg');
   const [showFront, setShowFront] = useState(true);
@@ -72,11 +73,11 @@ export default function Sidebar({ status }: SidebarProps) {
   const pathname = usePathname();
 
   const navItems = [
-    { href: '/kanban', icon: '📜', label: 'Quest Board' },
-    { href: '/schedule', icon: '⏳', label: 'Timeline' },
-    { href: '/analytics', icon: '📊', label: 'Stats & EXP' },
-    { href: '/debug', icon: '🎯', label: 'Quest Debug' },
-    { href: '/settings', icon: '🔧', label: 'Config' },
+    { href: '/dashboard/kanban', icon: '📜', label: 'Quest Board' },
+    { href: '/dashboard/schedule', icon: '⏳', label: 'Timeline' },
+    { href: '/dashboard/analytics', icon: '📊', label: 'Stats & EXP' },
+    { href: '/dashboard/debug', icon: '🎯', label: 'Quest Debug' },
+    { href: '/dashboard/settings', icon: '🔧', label: 'Config' },
   ];
 
   return (
@@ -119,6 +120,25 @@ export default function Sidebar({ status }: SidebarProps) {
       ))}
       
       <div style={{flex: 1}}></div>
+      
+      {onLogout && (
+        <button 
+          onClick={onLogout}
+          className="nav-item logout-btn"
+          style={{
+            background: 'none',
+            border: 'none',
+            width: '100%',
+            textAlign: 'left',
+            cursor: 'pointer',
+            fontSize: '0.9rem',
+            padding: '0.75rem 1rem',
+            color: '#e74c3c',
+          }}
+        >
+          <span>🚪</span> Logout
+        </button>
+      )}
     </div>
   );
 }
