@@ -168,10 +168,7 @@ export function InventoryClient() {
 
   return (
     <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-      {/* Header */}
-      <h1 style={{ margin: '0 0 1.5rem', fontSize: '1.75rem', fontWeight: 700 }}>
-        📦 Inventory
-      </h1>
+
 
       {/* Tabs */}
       <div className="tabs-container" style={{ marginBottom: '1.5rem' }}>

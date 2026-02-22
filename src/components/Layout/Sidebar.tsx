@@ -79,13 +79,14 @@ export default function Sidebar({ status, onLogout }: SidebarProps) {
   // Check if path is active (handles nested routes)
   const isActive = (href: string) => {
     if (href === '/dashboard') {
-      return pathname === '/dashboard' || pathname.startsWith('/dashboard/')
+      return pathname === '/dashboard' || (pathname.startsWith('/dashboard/') && !pathname.includes('/debug'))
     }
     return pathname === href || pathname.startsWith(href + '/')
   }
 
   const navItems = [
     { href: '/dashboard', icon: '📜', label: 'Quest Board' },
+    { href: '/dashboard/debug', icon: '🎯', label: 'Debug' },
     { href: '/inventory', icon: '📦', label: 'Inventory' },
     { href: '/settings', icon: '🔧', label: 'Config' },
   ];
@@ -131,15 +132,11 @@ export default function Sidebar({ status, onLogout }: SidebarProps) {
       
       <div style={{flex: 1}}></div>
       
-      {/* Version Info */}
+      {/* Separator */}
       <div style={{
-        padding: '0.75rem 1rem',
-        fontSize: '0.75rem',
-        color: '#888',
-        borderTop: '1px solid rgba(0,0,0,0.05)',
-      }}>
-        v{VERSION}{VERSION_DATE && ` (${VERSION_DATE})`}
-      </div>
+        borderTop: '1px solid rgba(0,0,0,0.08)',
+        margin: '0.5rem 1rem',
+      }}></div>
       
       {onLogout && (
         <button 
@@ -159,6 +156,20 @@ export default function Sidebar({ status, onLogout }: SidebarProps) {
           <span>🚪</span> Logout
         </button>
       )}
+      
+      {/* Version Info - centered at bottom with tooltip */}
+      <div 
+        title={VERSION_DATE || undefined}
+        style={{
+          padding: '0.75rem 1rem',
+          fontSize: '0.75rem',
+          color: '#aaa',
+          textAlign: 'center',
+          cursor: VERSION_DATE ? 'help' : 'default',
+        }}
+      >
+        v{VERSION}
+      </div>
     </div>
   );
 }

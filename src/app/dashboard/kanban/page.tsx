@@ -85,31 +85,20 @@ export default function KanbanPage() {
 
   return (
     <>
-      {/* Topbar */}
-      <div className="topbar">
-        <div>
-          <h1>
-            <span style={{ background: 'var(--accent-gradient)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-              Quest Board
-            </span>
-            <span style={{ marginLeft: '0.5rem' }}>⚔️</span>
-          </h1>
-          <p>Ready for adventure? ✨</p>
-        </div>
-        <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-          <Button variant="glass" onClick={() => setShowNewTask(true)}>
-            ✨ New Quest
-          </Button>
-          <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer', whiteSpace: 'nowrap' }}>
-            <input 
-              type="checkbox" 
-              checked={showBlocked}
-              onChange={(e) => setShowBlocked(e.target.checked)}
-              style={{ cursor: 'pointer' }}
-            />
-            Show Blocked
-          </label>
-        </div>
+      {/* Page Actions */}
+      <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', marginBottom: '1rem' }}>
+        <Button variant="glass" onClick={() => setShowNewTask(true)}>
+          ✨ New Quest
+        </Button>
+        <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer', whiteSpace: 'nowrap' }}>
+          <input 
+            type="checkbox" 
+            checked={showBlocked}
+            onChange={(e) => setShowBlocked(e.target.checked)}
+            style={{ cursor: 'pointer' }}
+          />
+          Show Blocked
+        </label>
       </div>
 
       {/* Board Container */}
