@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import '@/components/UI/Tabs.css';
+import { Tabs } from '@/components/UI/Tabs';
 
 // Tab definitions
 const TABS = [
@@ -171,18 +171,12 @@ export function InventoryClient() {
 
 
       {/* Tabs */}
-      <div className="tabs-container" style={{ marginBottom: '1.5rem' }}>
-        {TABS.map(tab => (
-          <button
-            key={tab.id}
-            className={`tab-button ${activeTab === tab.id ? 'active' : ''}`}
-            onClick={() => setActiveTab(tab.id)}
-          >
-            <span style={{ marginRight: '0.5rem' }}>{tab.icon}</span>
-            {tab.label}
-          </button>
-        ))}
-      </div>
+      <Tabs
+        items={TABS}
+        activeTab={activeTab}
+        onTabChange={setActiveTab}
+        style={{ marginBottom: '1.5rem' }}
+      />
 
       {/* Message */}
       {message && (

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import '@/components/UI/Tabs.css';
+import { Tabs } from '@/components/UI/Tabs';
 import { Button } from '@/components/UI/Button';
 
 export default function SettingsPage() {
@@ -99,18 +99,11 @@ export default function SettingsPage() {
     <div className="settings-page" style={{padding: '2rem'}}>
       
       {/* Tabs */}
-      <div className="tabs-container">
-        {tabs.map(tab => (
-          <button
-            key={tab.id}
-            className={`tab-button ${activeTab === tab.id ? 'active' : ''}`}
-            onClick={() => setActiveTab(tab.id)}
-          >
-            <span className="tab-icon">{tab.icon}</span>
-            <span>{tab.label}</span>
-          </button>
-        ))}
-      </div>
+      <Tabs
+        items={tabs}
+        activeTab={activeTab}
+        onTabChange={setActiveTab}
+      />
 
       {/* GENERAL TAB */}
       {activeTab === 'general' && (

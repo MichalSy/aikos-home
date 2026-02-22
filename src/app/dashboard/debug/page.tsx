@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import '@/components/UI/Button.css';
-import '@/components/UI/Tabs.css';
+import { Tabs } from '@/components/UI/Tabs';
 
 export default function DebugPage() {
   const [logs, setLogs] = useState<any[]>([]);
@@ -297,24 +297,15 @@ export default function DebugPage() {
       )}
 
       {/* Tabs */}
-      <div className="tabs-container" style={{ marginBottom: '0' }}>
-        <div className="tabs-header">
-          {tabItems.map(tab => (
-            <button
-              key={tab.id}
-              className={`tab-button ${activeTab === tab.id ? 'active' : ''}`}
-              onClick={() => {
-                setActiveTab(tab.id);
-                if (tab.id === 'database') loadDatabaseState();
-              }}
-            >
-              {tab.icon && <span className="tab-icon">{tab.icon}</span>}
-              {tab.label}
-              {activeTab === tab.id && <div className="tab-indicator" />}
-            </button>
-          ))}
-        </div>
-      </div>
+      <Tabs 
+        items={tabItems}
+        activeTab={activeTab}
+        onTabChange={(id) => {
+          setActiveTab(id);
+          if (id === 'database') loadDatabaseState();
+        }}
+        style={{ marginBottom: 0 }}
+      />
 
       {/* Content */}
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden', minHeight: 0, background: 'rgba(255, 255, 255, 0.2)', borderRadius: 'var(--border-radius)', border: '1px solid rgba(255, 255, 255, 0.3)', padding: '1rem' }}>
