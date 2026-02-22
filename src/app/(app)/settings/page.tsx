@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import '../../components/UI/Tabs.css';
-import { Button } from '../../components/UI/Button';
+import '@/components/UI/Tabs.css';
+import { Button } from '@/components/UI/Button';
 
 export default function SettingsPage() {
   const [activeTab, setActiveTab] = useState('security');

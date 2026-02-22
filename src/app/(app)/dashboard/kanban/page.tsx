@@ -1,10 +1,10 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import '../../../components/Board/KanbanBoard.css';
-import '../../../components/Board/Card.css';
-import { Button } from '../../../components/UI/Button';
-import { NewTaskModal } from '../../../components/Board/NewTaskModal';
+import '@/components/Board/KanbanBoard.css';
+import '@/components/Board/Card.css';
+import { Button } from '@/components/UI/Button';
+import { NewTaskModal } from '@/components/Board/NewTaskModal';
 
 interface Task {
   id: number;

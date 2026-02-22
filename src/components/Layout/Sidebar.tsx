@@ -9,6 +9,10 @@ interface SidebarProps {
   onLogout?: () => void;
 }
 
+// Version info - update on releases
+const VERSION = '1.1.0';
+const VERSION_DATE = '22.02.2026';
+
 export default function Sidebar({ status, onLogout }: SidebarProps) {
   const [frontImage, setFrontImage] = useState('/avatar.jpg');
   const [backImage, setBackImage] = useState('/avatar.jpg');
@@ -72,6 +76,14 @@ export default function Sidebar({ status, onLogout }: SidebarProps) {
 
   const pathname = usePathname();
 
+  // Check if path is active (handles nested routes)
+  const isActive = (href: string) => {
+    if (href === '/dashboard') {
+      return pathname === '/dashboard' || pathname.startsWith('/dashboard/')
+    }
+    return pathname === href || pathname.startsWith(href + '/')
+  }
+
   const navItems = [
     { href: '/dashboard', icon: '📜', label: 'Quest Board' },
     { href: '/inventory', icon: '📦', label: 'Inventory' },
@@ -111,13 +123,23 @@ export default function Sidebar({ status, onLogout }: SidebarProps) {
         <Link 
           key={item.href}
           href={item.href}
-          className={`nav-item ${pathname === item.href ? 'active' : ''}`}
+          className={`nav-item ${isActive(item.href) ? 'active' : ''}`}
         >
           <span>{item.icon}</span> {item.label}
         </Link>
       ))}
       
       <div style={{flex: 1}}></div>
+      
+      {/* Version Info */}
+      <div style={{
+        padding: '0.75rem 1rem',
+        fontSize: '0.75rem',
+        color: '#888',
+        borderTop: '1px solid rgba(0,0,0,0.05)',
+      }}>
+        v{VERSION} ({VERSION_DATE})
+      </div>
       
       {onLogout && (
         <button 

@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import '../../../components/UI/Button.css';
-import '../../../components/UI/Tabs.css';
+import '@/components/UI/Button.css';
+import '@/components/UI/Tabs.css';
 
 export default function DebugPage() {
   const [logs, setLogs] = useState<any[]>([]);
