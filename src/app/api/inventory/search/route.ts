@@ -14,7 +14,7 @@ async function searchNuggets(req: NextRequest) {
     // Sanitize: escape single quotes for shell safety
     const safeQuery = query.replace(/'/g, "'\\''");
 
-    const { stdout } = await sshExec(`qmd search '${safeQuery}' 2>/dev/null || true`);
+    const { stdout } = await sshExec(`/home/aiko/.bun/bin/qmd search '${safeQuery}' 2>/dev/null || true`);
 
     // Parse: extract nugget names from lines like:
     // qmd://shared-brain/nuggets/<name>/nugget.md:1 #hash
