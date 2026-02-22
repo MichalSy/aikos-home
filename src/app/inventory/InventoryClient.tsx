@@ -23,6 +23,7 @@ export function InventoryClient() {
   const [filteredNames, setFilteredNames] = useState<string[] | null>(null); // null = no filter
   const [searchQuery, setSearchQuery] = useState('');
   const [searching, setSearching] = useState(false);
+  const [reindexing, setReindexing] = useState(false);
   const [selectedNugget, setSelectedNugget] = useState<string | null>(null);
   const [content, setContent] = useState('');
   const [isEditing, setIsEditing] = useState(false);
@@ -158,6 +159,21 @@ export function InventoryClient() {
     finally { setSaving(false); }
   };
 
+  const handleReindex = async () => {
+    setReindexing(true);
+    try {
+      const res = await fetch('/api/inventory/reindex', {
+        method: 'POST',
+        headers: authHeader()
+      });
+      if (res.ok) {
+        setMessage({ type: 'success', text: '✅ Index neu aufgebaut (qmd embed)' });
+        setTimeout(() => setMessage(null), 3000);
+      }
+    } catch { setMessage({ type: 'error', text: 'Reindex fehlgeschlagen' }); }
+    finally { setReindexing(false); }
+  };
+
   const handleSearch = useCallback((q: string) => {
     setSearchQuery(q);
     if (searchTimeout.current) clearTimeout(searchTimeout.current);
@@ -233,11 +249,26 @@ export function InventoryClient() {
               )}
             </div>
 
-            {/* Count */}
-            <div style={{ fontSize: '0.8rem', color: '#888', marginBottom: '0.5rem' }}>
-              {searching ? 'Suche...' : filteredNames !== null
-                ? `${visibleNuggets.length} von ${nuggets.length} Nuggets`
-                : `${nuggets.length} Nuggets`}
+            {/* Count + Reindex */}
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+              <div style={{ fontSize: '0.8rem', color: '#888' }}>
+                {searching ? 'Suche...' : filteredNames !== null
+                  ? `${visibleNuggets.length} von ${nuggets.length}`
+                  : `${nuggets.length} Nuggets`}
+              </div>
+              <button
+                onClick={handleReindex}
+                disabled={reindexing}
+                title="qmd update + embed (verbessert Suchergebnisse)"
+                style={{
+                  padding: '0.2rem 0.4rem', fontSize: '0.7rem', borderRadius: '0.35rem',
+                  border: '1px solid rgba(0,0,0,0.15)', background: 'transparent',
+                  cursor: reindexing ? 'wait' : 'pointer', color: '#888',
+                  opacity: reindexing ? 0.5 : 1
+                }}
+              >
+                {reindexing ? '⏳' : '🔄'}
+              </button>
             </div>
 
             {/* List */}
