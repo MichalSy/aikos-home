@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
-import db from '@/lib/db';
+import { setConfig } from '@/lib/db';
 import { requireAuth } from '@/lib/auth';
 
-async function changePassword(req: NextRequest) {
+async function handleChangePassword(req: NextRequest) {
   try {
     const { newPassword } = await req.json();
     
@@ -10,9 +10,7 @@ async function changePassword(req: NextRequest) {
       return NextResponse.json({ error: 'Password must be at least 4 characters' }, { status: 400 });
     }
     
-    const stmt = db.prepare('INSERT OR REPLACE INTO config (key, value) VALUES (?, ?)');
-    stmt.run('kanban_password', newPassword);
-    
+    await setConfig('kanban_password', newPassword);
     return NextResponse.json({ success: true });
   } catch (error: any) {
     console.error('POST /api/change-password error:', error.message);
@@ -20,4 +18,4 @@ async function changePassword(req: NextRequest) {
   }
 }
 
-export const POST = requireAuth(changePassword);
+export const POST = requireAuth(handleChangePassword);

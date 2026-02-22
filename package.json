@@ -13,7 +13,6 @@
     "@michalsy/aiko-webapp-core": "^1.0.28",
     "@supabase/ssr": "^0.8.0",
     "@supabase/supabase-js": "^2.97.0",
-    "better-sqlite3": "^12.6.2",
     "next": "^14.2.0",
     "react": "^18.3.0",
     "react-dom": "^18.3.0",
@@ -22,7 +21,6 @@
     "uuid": "^13.0.0"
   },
   "devDependencies": {
-    "@types/better-sqlite3": "^7.6.13",
     "@types/node": "^20.0.0",
     "@types/react": "^18.3.0",
     "@types/react-dom": "^18.3.0",

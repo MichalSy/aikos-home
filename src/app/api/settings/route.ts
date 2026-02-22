@@ -1,16 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
-import db from '@/lib/db';
+import { getSettings, saveSettings } from '@/lib/db';
 import { requireAuth } from '@/lib/auth';
 
-async function getSettings(req: NextRequest) {
+async function handleGetSettings(req: NextRequest) {
   try {
-    const settings: Record<string, string> = {};
-    const rows = db.prepare('SELECT key, value FROM settings').all() as Array<{key: string, value: string}>;
-    
-    rows.forEach(row => {
-      settings[row.key] = row.value;
-    });
-    
+    const settings = await getSettings();
     return NextResponse.json(settings);
   } catch (error: any) {
     console.error('GET /api/settings error:', error.message);
@@ -18,16 +12,10 @@ async function getSettings(req: NextRequest) {
   }
 }
 
-async function saveSettings(req: NextRequest) {
+async function handleSaveSettings(req: NextRequest) {
   try {
     const body = await req.json();
-    
-    const stmt = db.prepare('INSERT OR REPLACE INTO settings (key, value) VALUES (?, ?)');
-    
-    Object.entries(body).forEach(([key, value]) => {
-      stmt.run(key, value);
-    });
-    
+    await saveSettings(body);
     return NextResponse.json({ success: true });
   } catch (error: any) {
     console.error('POST /api/settings error:', error.message);
@@ -35,5 +23,5 @@ async function saveSettings(req: NextRequest) {
   }
 }
 
-export const GET = requireAuth(getSettings);
-export const POST = requireAuth(saveSettings);
+export const GET = requireAuth(handleGetSettings);
+export const POST = requireAuth(handleSaveSettings);
