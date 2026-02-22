@@ -5,8 +5,8 @@ FROM node:20-alpine
 
 WORKDIR /app
 
-# Install dumb-init for proper signal handling
-RUN apk add --no-cache dumb-init
+# Install dumb-init for proper signal handling + openssh-client for host access
+RUN apk add --no-cache dumb-init openssh-client
 
 # Copy package files and ALL node_modules from build
 COPY package*.json ./
