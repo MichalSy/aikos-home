@@ -2,7 +2,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import { 
   sshReadFile, 
   sshWriteFile,
-  sshFileExists 
+  sshFileExists,
+  sshExec,
+  sshDirExists
 } from '@michalsy/aiko-webapp-core/server';
 import { requireAuth } from '@/lib/auth';
 
@@ -44,5 +46,27 @@ async function updateNugget(req: NextRequest, { params }: { params: { name: stri
   }
 }
 
+async function deleteNugget(req: NextRequest, { params }: { params: { name: string } }) {
+  try {
+    const { name } = params;
+    // Sanitize: only allow alphanumeric, dash, underscore
+    if (!/^[a-zA-Z0-9_-]+$/.test(name)) {
+      return NextResponse.json({ error: 'Invalid nugget name' }, { status: 400 });
+    }
+
+    const nuggetDir = `${SHARED_BRAIN}/nuggets/${name}`;
+    if (!(await sshDirExists(nuggetDir))) {
+      return NextResponse.json({ error: 'Nugget not found' }, { status: 404 });
+    }
+
+    await sshExec(`rm -rf "${nuggetDir}"`);
+    return NextResponse.json({ success: true });
+  } catch (error: any) {
+    console.error('Delete nugget error:', error);
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+}
+
 export const GET = requireAuth(getNugget);
 export const PUT = requireAuth(updateNugget);
+export const DELETE = requireAuth(deleteNugget);
