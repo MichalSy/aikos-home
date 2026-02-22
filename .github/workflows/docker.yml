@@ -38,7 +38,7 @@ jobs:
           
           if [ -z "$LAST_PATCH" ]; then
             PATCH=0
-            echo "No previous version found, starting at ${BASE}.0"
+            echo "No previous version found for ${BASE}.X, starting at ${BASE}.0"
           else
             PATCH=$((LAST_PATCH + 1))
             echo "Last version: ${BASE}.${LAST_PATCH}, next: ${BASE}.${PATCH}"
