@@ -9,9 +9,9 @@ interface SidebarProps {
   onLogout?: () => void;
 }
 
-// Version info - update on releases
-const VERSION = '1.1.0';
-const VERSION_DATE = '22.02.2026';
+// Version from build-time env (set in CI pipeline)
+const VERSION = process.env.NEXT_PUBLIC_APP_VERSION || 'dev';
+const VERSION_DATE = process.env.NEXT_PUBLIC_APP_VERSION_DATE || '';
 
 export default function Sidebar({ status, onLogout }: SidebarProps) {
   const [frontImage, setFrontImage] = useState('/avatar.jpg');
@@ -138,7 +138,7 @@ export default function Sidebar({ status, onLogout }: SidebarProps) {
         color: '#888',
         borderTop: '1px solid rgba(0,0,0,0.05)',
       }}>
-        v{VERSION} ({VERSION_DATE})
+        v{VERSION}{VERSION_DATE && ` (${VERSION_DATE})`}
       </div>
       
       {onLogout && (
