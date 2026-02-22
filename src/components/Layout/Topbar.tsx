@@ -1,11 +1,16 @@
+'use client';
+
+import { useTopbarActions } from '@/contexts/TopbarActionsContext';
+
 interface TopbarProps {
   title: string;
   subtitle?: string;
   icon?: string;
-  children?: React.ReactNode;
 }
 
-export function Topbar({ title, subtitle, icon, children }: TopbarProps) {
+export function Topbar({ title, subtitle, icon }: TopbarProps) {
+  const { actions } = useTopbarActions();
+
   return (
     <div className="topbar">
       <div>
@@ -17,7 +22,7 @@ export function Topbar({ title, subtitle, icon, children }: TopbarProps) {
         </h1>
         {subtitle && <p>{subtitle}</p>}
       </div>
-      {children && <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>{children}</div>}
+      {actions && <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>{actions}</div>}
     </div>
   );
 }

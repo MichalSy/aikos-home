@@ -5,6 +5,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { useWebSocket } from '@/hooks/useWebSocket';
 import Sidebar from './Sidebar';
 import { Topbar } from './Topbar';
+import { TopbarActionsProvider } from '@/contexts/TopbarActionsContext';
 import LoginForm from '@/components/Auth/LoginForm';
 
 interface AppShellProps {
@@ -68,19 +69,21 @@ export function AppShell({ children, sidebarPaths }: AppShellProps) {
     const pageConfig = getPageConfig();
     
     return (
-      <div style={{ display: 'grid', gridTemplateColumns: '300px 1fr', height: '100vh' }}>
-        <Sidebar status={status} onLogout={logout} />
-        <main className="main-content">
-          <Topbar 
-            title={pageConfig.title} 
-            subtitle={pageConfig.subtitle} 
-            icon={pageConfig.icon} 
-          />
-          <div style={{ flex: 1, overflow: 'auto', padding: '1.5rem' }}>
-            {children}
-          </div>
-        </main>
-      </div>
+      <TopbarActionsProvider>
+        <div style={{ display: 'grid', gridTemplateColumns: '300px 1fr', height: '100vh' }}>
+          <Sidebar status={status} onLogout={logout} />
+          <main className="main-content">
+            <Topbar 
+              title={pageConfig.title} 
+              subtitle={pageConfig.subtitle} 
+              icon={pageConfig.icon} 
+            />
+            <div style={{ flex: 1, overflow: 'auto', padding: '1.5rem' }}>
+              {children}
+            </div>
+          </main>
+        </div>
+      </TopbarActionsProvider>
     );
   }
 

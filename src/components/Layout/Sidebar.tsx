@@ -132,12 +132,6 @@ export default function Sidebar({ status, onLogout }: SidebarProps) {
       
       <div style={{flex: 1}}></div>
       
-      {/* Separator */}
-      <div style={{
-        borderTop: '1px solid rgba(0,0,0,0.08)',
-        margin: '0.5rem 1rem',
-      }}></div>
-      
       {onLogout && (
         <button 
           onClick={onLogout}
@@ -151,11 +145,18 @@ export default function Sidebar({ status, onLogout }: SidebarProps) {
             fontSize: '0.9rem',
             padding: '0.75rem 1rem',
             color: '#e74c3c',
+            marginBottom: '0.5rem',
           }}
         >
           <span>🚪</span> Logout
         </button>
       )}
+      
+      {/* Separator */}
+      <div style={{
+        borderTop: '1px solid rgba(0,0,0,0.08)',
+        margin: '0.5rem 1rem',
+      }}></div>
       
       {/* Version Info - centered at bottom with tooltip */}
       <div 

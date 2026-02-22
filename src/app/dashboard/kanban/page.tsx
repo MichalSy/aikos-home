@@ -5,6 +5,7 @@ import '@/components/Board/KanbanBoard.css';
 import '@/components/Board/Card.css';
 import { Button } from '@/components/UI/Button';
 import { NewTaskModal } from '@/components/Board/NewTaskModal';
+import { useTopbarActions } from '@/contexts/TopbarActionsContext';
 
 interface Task {
   id: number;
@@ -39,10 +40,34 @@ export default function KanbanPage() {
     blocked: 0,
     done: 0
   });
+  
+  const { setActions } = useTopbarActions();
 
   useEffect(() => {
     fetchQuests();
   }, []);
+
+  // Inject actions into Topbar
+  useEffect(() => {
+    setActions(
+      <>
+        <Button variant="glass" onClick={() => setShowNewTask(true)}>
+          ✨ New Quest
+        </Button>
+        <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer', whiteSpace: 'nowrap' }}>
+          <input 
+            type="checkbox" 
+            checked={showBlocked}
+            onChange={(e) => setShowBlocked(e.target.checked)}
+            style={{ cursor: 'pointer' }}
+          />
+          Show Blocked
+        </label>
+      </>
+    );
+    
+    return () => setActions(null);
+  }, [setActions, showBlocked]);
 
   const fetchQuests = async () => {
     try {
@@ -85,22 +110,6 @@ export default function KanbanPage() {
 
   return (
     <>
-      {/* Page Actions */}
-      <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', marginBottom: '1rem' }}>
-        <Button variant="glass" onClick={() => setShowNewTask(true)}>
-          ✨ New Quest
-        </Button>
-        <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer', whiteSpace: 'nowrap' }}>
-          <input 
-            type="checkbox" 
-            checked={showBlocked}
-            onChange={(e) => setShowBlocked(e.target.checked)}
-            style={{ cursor: 'pointer' }}
-          />
-          Show Blocked
-        </label>
-      </div>
-
       {/* Board Container */}
       <div className="board-container">
         <div className="board">
@@ -137,10 +146,9 @@ export default function KanbanPage() {
         </div>
       </div>
 
-      {/* New Quest Modal */}
       {showNewTask && (
         <NewTaskModal 
-          onClose={() => setShowNewTask(false)}
+          onClose={() => setShowNewTask(false)} 
           onCreated={fetchQuests}
         />
       )}
