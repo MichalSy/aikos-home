@@ -73,12 +73,9 @@ export default function Sidebar({ status, onLogout }: SidebarProps) {
   const pathname = usePathname();
 
   const navItems = [
-    { href: '/dashboard/kanban', icon: '📜', label: 'Quest Board' },
-    { href: '/dashboard/inventory', icon: '📦', label: 'Inventory' },
-    { href: '/dashboard/schedule', icon: '⏳', label: 'Timeline' },
-    { href: '/dashboard/analytics', icon: '📊', label: 'Stats & EXP' },
-    { href: '/dashboard/debug', icon: '🎯', label: 'Quest Debug' },
-    { href: '/dashboard/settings', icon: '🔧', label: 'Config' },
+    { href: '/dashboard', icon: '📜', label: 'Quest Board' },
+    { href: '/inventory', icon: '📦', label: 'Inventory' },
+    { href: '/settings', icon: '🔧', label: 'Config' },
   ];
 
   return (
