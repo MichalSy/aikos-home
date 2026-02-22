@@ -5,12 +5,15 @@ FROM node:20-alpine
 
 WORKDIR /app
 
-# Install dumb-init for proper signal handling
-RUN apk add --no-cache dumb-init
+# Install dumb-init + build deps for better-sqlite3
+RUN apk add --no-cache dumb-init python3 make g++ libc-dev
 
 # Copy package files and ALL node_modules from build
 COPY package*.json ./
 COPY node_modules ./node_modules
+
+# Rebuild native modules for Alpine
+RUN npm rebuild better-sqlite3
 
 # Copy built application
 COPY .next ./.next
