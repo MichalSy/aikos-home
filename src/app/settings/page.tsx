@@ -96,7 +96,7 @@ export default function SettingsPage() {
   ];
 
   return (
-    <div className="settings-page" style={{padding: '2rem'}}>
+    <div className="settings-page">
       
       {/* Tabs */}
       <Tabs

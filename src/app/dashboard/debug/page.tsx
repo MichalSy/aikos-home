@@ -172,7 +172,7 @@ export default function DebugPage() {
   const questTasks = selectedQuest?.tasks || [];
 
   return (
-    <div className="quest-debugger" style={{ padding: '2rem 2.5rem', height: '100%', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+    <div className="quest-debugger" style={{ height: '100%', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
       {/* Control Bar */}
       <div className="debugger-controls" style={{
         display: 'flex',
