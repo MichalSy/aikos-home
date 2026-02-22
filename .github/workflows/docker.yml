@@ -101,6 +101,22 @@ jobs:
             org.opencontainers.image.version=${{ steps.version.outputs.version }}
             org.opencontainers.image.created=${{ steps.version.outputs.timestamp }}
 
+      - name: Update gitops-config
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+          git clone --depth 1 https://x-access-token:${{ secrets.GITOPS_TOKEN }}@github.com/MichalSy/gitops-config.git /tmp/gitops-config
+          
+          cd /tmp/gitops-config
+          
+          # Update kustomization.yaml with new version
+          sed -i 's|newTag: "[0-9]*\.[0-9]*\.[0-9]*"|newTag: "${{ steps.version.outputs.version }}"|g' apps/aikos-home/kustomization.yaml
+          
+          git add -A
+          git commit -m "chore: update aikos-home to ${{ steps.version.outputs.version }}" || echo "No changes"
+          git push
+
       - name: Summary
         run: |
           echo "## 🚀 Deployment Summary" >> $GITHUB_STEP_SUMMARY
@@ -108,3 +124,5 @@ jobs:
           echo "**Version:** \`${{ steps.version.outputs.version }}\`" >> $GITHUB_STEP_SUMMARY
           echo "**Built:** ${{ steps.version.outputs.timestamp }}" >> $GITHUB_STEP_SUMMARY
           echo "**Image:** \`${{ steps.version.outputs.full_image }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "✅ gitops-config updated → ArgoCD will auto-sync"
