@@ -197,6 +197,7 @@ export function InventoryClient() {
           {/* Left: Nugget List */}
           <div style={{
             width: '250px',
+            flexShrink: 0,
             background: 'var(--card-bg)',
             borderRadius: '1rem',
             padding: '1rem',
@@ -238,13 +239,15 @@ export function InventoryClient() {
           {/* Right: Content / Editor */}
           <div style={{
             flex: 1,
+            minWidth: 0,
             background: 'var(--card-bg)',
             borderRadius: '1rem',
             padding: '1.5rem',
             display: 'flex',
             flexDirection: 'column',
             boxShadow: 'var(--shadow)',
-            minHeight: 0
+            minHeight: 0,
+            overflow: 'hidden'
           }}>
             {!selectedNugget ? (
               <div style={{ color: '#888', textAlign: 'center', marginTop: '3rem' }}>
@@ -322,7 +325,7 @@ export function InventoryClient() {
                       }}
                     />
                   ) : (
-                    <div className="markdown-body" style={{ lineHeight: 1.6 }}>
+                    <div className="markdown-body" style={{ lineHeight: 1.6, overflowWrap: 'break-word', wordBreak: 'break-word' }}>
                       <ReactMarkdown remarkPlugins={[remarkGfm]}>
                         {content}
                       </ReactMarkdown>
@@ -337,6 +340,7 @@ export function InventoryClient() {
           {gitStatus.length > 0 && (
             <div style={{
               width: '250px',
+              flexShrink: 0,
               background: 'var(--card-bg)',
               borderRadius: '1rem',
               padding: '1rem',
