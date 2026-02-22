@@ -41,10 +41,34 @@ kind: Service
 metadata:
   name: aikos-home
 spec:
-  type: NodePort
+  type: ClusterIP
   selector:
     app: aikos-home
   ports:
   - port: 3001
     targetPort: 3001
-    nodePort: 30300
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: aikos-home
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    traefik.ingress.kubernetes.io/router.tls.certresolver: letsencrypt
+spec:
+  tls:
+  - hosts:
+    - aikos-home.sytko.de
+    secretName: aikos-home-tls
+  rules:
+  - host: aikos-home.sytko.de
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: aikos-home
+            port:
+              number: 3001
