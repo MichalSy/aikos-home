@@ -16,6 +16,8 @@ COPY node_modules ./node_modules
 COPY .next ./.next
 COPY public ./public
 COPY server.js ./
+COPY src/app ./app
+COPY next.config.js ./
 
 # Create non-root user
 RUN addgroup --system --gid 1001 nodejs
